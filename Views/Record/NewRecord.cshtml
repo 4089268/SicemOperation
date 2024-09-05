@@ -1,0 +1,119 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-7 text-uppercase">Registrar Captura</h1>
+</div>
+
+<form action="#" id="basicform" data-parsley-validate="" class="row mt-2">
+    
+        <div class="col-12 card mb-1">
+            <h5 class="card-header text-center">Fugas</h5>
+            <div class="card-body container">
+                <div class="row">
+                    <div class="form-group col-3 d-flex flex-column justify-content-end">
+                        <label for="fuga-toma-domiciliaria">En Tomas domiciliarias</label>
+                        <input id="fuga-toma-domiciliaria" type="number" name="fuga-toma-domiciliaria" data-parsley-trigger="change" required="" placeholder="#" class="form-control">
+                    </div>
+                    <div class="form-group col-3 d-flex flex-column justify-content-end">
+                        <label for="fuga-linea-conduccion">En Lineas de Conduccion</label>
+                        <input id="fuga-linea-conduccion" type="number" name="fuga-linea-conduccion" data-parsley-trigger="change" required="" placeholder="#" class="form-control">
+                    </div>
+                    <div class="form-group col-3 d-flex flex-column justify-content-end">
+                        <label for="fuga-linea-distribucion">En Redes de Distribución</label>
+                        <input id="fuga-linea-distribucion" type="number" name="fuga-linea-distribucion" data-parsley-trigger="change" required="" placeholder="#" class="form-control">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 card mb-1">
+            <h5 class="card-header text-center" style="line-height: 1.2rem;">Fallas de equipos electromecánicos en agua potable.</h5>
+            <div class="card-body container">
+                <div class="row">
+                    <div class="form-group col-3 d-flex flex-column justify-content-end">
+                        <label for="falla-agua-potable-electrica">Subestaciones Electricas (Transformadores, cuchillas, etc.)</label>
+                        <input id="falla-agua-potable-electrica" type="number" name="falla-agua-potable-electrica" data-parsley-trigger="change" required="" placeholder="#" class="form-control">
+                    </div>
+                    <div class="form-group col-3 d-flex flex-column justify-content-end">
+                        <label for="falla-agua-potable-centro">Centro de Control Motores ( Arrancadores)</label>
+                        <input id="falla-agua-potable-centro" type="number" name="falla-agua-potable-centro" data-parsley-trigger="change" required="" placeholder="#" class="form-control">
+                    </div>
+                    <div class="form-group col-3 d-flex flex-column justify-content-end">
+                        <label for="falla-agua-potable-bombeo">Equipo de Bombeo</label>
+                        <input id="falla-agua-potable-bombeo" type="number" name="falla-agua-potable-bombeo" data-parsley-trigger="change" required="" placeholder="#" class="form-control">
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <div class="col-12 card mb-1">
+            <h5 class="card-header text-center" style="line-height: 1.2rem;">Fallas de equipos electromecánicos en aguas residuales.</h5>
+            <div class="card-body container">
+                <div class="row">
+                    <div class="form-group col-3 d-flex flex-column justify-content-end">
+                        <label for="falla-agua-residual-electrica">Subestaciones Electricas (Transformadores, cuchillas, etc.)</label>
+                        <input id="falla-agua-residual-electrica" type="number" name="falla-agua-residual-electrica" data-parsley-trigger="change" required="" placeholder="#" class="form-control">
+                    </div>
+                    <div class="form-group col-3 d-flex flex-column justify-content-end">
+                        <label for="falla-agua-residual-centro">Centro de Control Motores (Arrancadores)</label>
+                        <input id="falla-agua-residual-centro" type="number" name="falla-agua-residual-centro" data-parsley-trigger="change" required="" placeholder="#" class="form-control">
+                    </div>
+                    <div class="form-group col-3 d-flex flex-column justify-content-end">
+                        <label for="falla-agua-residual-bombeo">Equipo de Bombeo (motor-bomba)</label>
+                        <input id="falla-agua-residual-bombeo" type="number" name="falla-agua-residual-bombeo" data-parsley-trigger="change" required="" placeholder="#" class="form-control">
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <div class="col-12 card mb-1">
+            <h5 class="card-header text-center" style="line-height: 1.2rem;">Recolección aguas residuales.</h5>
+            <div class="card-body container">
+                <div class="row">
+                    <div class="form-group col-3 d-flex flex-column justify-content-end">
+                        <label for="recoleccion-residual-atendido">No. de Rebosamientos de Agua Residuales Atendidos</label>
+                        <input id="recoleccion-residual-atendido" type="number" name="recoleccion-residual-atendido" data-parsley-trigger="change" required="" placeholder="#" class="form-control">
+                    </div>
+                    <div class="form-group col-3 d-flex flex-column justify-content-end">
+                        <label for="recoleccion-residual-colectores">Colectores Desasolvador (mts)</label>
+                        <input id="recoleccion-residual-colectores" type="number" name="recoleccion-residual-colectores" data-parsley-trigger="change" required="" placeholder="#" class="form-control">
+                    </div>
+                    <div class="form-group col-3 d-flex flex-column justify-content-end">
+                        <label for="recoleccion-residual-visita">De Pozos de Visita Desosolvadors (No.)</label>
+                        <input id="recoleccion-residual-visita" type="number" name="recoleccion-residual-visita" data-parsley-trigger="change" required="" placeholder="#" class="form-control">
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <div class="col-12 card mb-4">
+            <h5 class="card-header text-center" style="line-height: 1.2rem;">Fallas en plantas de tratamiento de aguas residuales (Atendidas)</h5>
+            <div class="card-body container">
+                <div class="row">
+                    <div class="form-group col-4">
+                        <label for="falla-tratamiento-equipos">Equipos en Pretratamiento</label>
+                        <input id="falla-tratamiento-equipos" type="number" name="falla-tratamiento-equipos" data-parsley-trigger="change" required="" placeholder="#" class="form-control">
+                    </div>
+                    <div class="form-group col-4">
+                        <label for="falla-tratamiento-aereacion">Sistema de Aereación (Sopladores y/o Difusores)</label>
+                        <input id="falla-tratamiento-aereacion" type="number" name="falla-tratamiento-aereacion" data-parsley-trigger="change" required="" placeholder="#" class="form-control">
+                    </div>
+                    <div class="form-group col-4">
+                        <label for="falla-tratamiento-recirculacion">Equipos de Recirculacion</label>
+                        <input id="falla-tratamiento-recirculacion" type="number" name="falla-tratamiento-recirculacion" data-parsley-trigger="change" required="" placeholder="#" class="form-control">
+                    </div>
+                    <div class="form-group col-4">
+                        <label for="falla-tratamiento-sedimentacion">Sistema Sedimentación</label>
+                        <input id="falla-tratamiento-sedimentacion" type="number" name="falla-tratamiento-sedimentacion" data-parsley-trigger="change" required="" placeholder="#" class="form-control">
+                    </div>
+                    <div class="form-group col-4">
+                        <label for="falla-tratamiento-desinfeccion">Sistema de Desinfeccionón</label>
+                        <input id="falla-tratamiento-desinfeccion" type="number" name="falla-tratamiento-desinfeccion" data-parsley-trigger="change" required="" placeholder="#" class="form-control">
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+</form>

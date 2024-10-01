@@ -45,6 +45,7 @@ public class AuthController(ILogger<AuthController> _logger, AuthService _authSe
     #region private functions
     private async Task LoginUser(Usuario user){
         var claims = new List<Claim> {
+            new(ClaimTypes.NameIdentifier, user.Id.ToString()),
             new(ClaimTypes.Email, user.Correo),
             new(ClaimTypes.Name, user.Nombre),
             new(ClaimTypes.Role, "Administrator"),

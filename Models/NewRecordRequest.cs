@@ -64,23 +64,23 @@ namespace SicemOperation.Models
 
         public NewRecordRequest(){
             Fecha = DateTime.Now;
-            FugaTomaDomiciliaria = 666;
-            FugaLineaConduccion = 666;
-            FugaLineaDistribucion = 666;
-            FallaAguaPotableElectrica = 666;
-            FallaAguaPotableCentroControl = 666;
-            FallaAguaPotableBombeo = 666;
-            FallaAguaResidualPotableElectrica = 666;
-            FallaAguaResidualCentroControl = 666;
-            FallaAguaResidualBombeo = 666;
-            RecoleccionResidualAtendido = 666;
-            RecoleccionResidualColector = 666;
-            RecoleccionResidualVisita = 666;
-            FallaTratamientoEquipos = 666;
-            FallaTratamientoAereacion = 666;
-            FallTratamientoRecirculacion = 666;
-            FallTratamientoSedimentacion = 666;
-            FallTratamientoDesinfeccion = 666;
+            FugaTomaDomiciliaria = 0;
+            FugaLineaConduccion = 0;
+            FugaLineaDistribucion = 0;
+            FallaAguaPotableElectrica = 0;
+            FallaAguaPotableCentroControl = 0;
+            FallaAguaPotableBombeo = 0;
+            FallaAguaResidualPotableElectrica = 0;
+            FallaAguaResidualCentroControl = 0;
+            FallaAguaResidualBombeo = 0;
+            RecoleccionResidualAtendido = 0;
+            RecoleccionResidualColector = 0;
+            RecoleccionResidualVisita = 0;
+            FallaTratamientoEquipos = 0;
+            FallaTratamientoAereacion = 0;
+            FallTratamientoRecirculacion = 0;
+            FallTratamientoSedimentacion = 0;
+            FallTratamientoDesinfeccion = 0;
         }
 
     }

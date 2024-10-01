@@ -2,7 +2,9 @@ using System.Diagnostics;
 using System.Linq.Expressions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SicemOperation.Migrations;
 using SicemOperation.Models;
+using SicemOperation.Services;
 
 namespace SicemOperation.Controllers;
 
@@ -10,10 +12,11 @@ namespace SicemOperation.Controllers;
 public class RecordController : Controller
 {
     private readonly ILogger<RecordController> _logger;
+    private readonly IncidenceService incidenceService;
 
-    public RecordController(ILogger<RecordController> logger)
-    {
+    public RecordController(ILogger<RecordController> logger, IncidenceService incidenceService) {
         _logger = logger;
+        this.incidenceService = incidenceService;
     }
 
     public IActionResult Index()
@@ -28,9 +31,8 @@ public class RecordController : Controller
     [HttpPost]
     public IActionResult NewRecord(NewRecordRequest request) {
         if(ModelState.IsValid){
-            ViewBag.Message = "Not implementado.";
-            ViewBag.MessageClass = "alert-warning";
-            return View(request);
+            this.incidenceService.RegisterIncidence(request);
+            return RedirectToAction("Index");
         }
 
         ViewBag.Message = "Datos no validos, verifique e intente de nuevo.";

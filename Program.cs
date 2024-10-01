@@ -19,7 +19,9 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         options.LoginPath = "/Auth/Login";
     }
 );
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<AuthService>();
+builder.Services.AddScoped<IncidenceService>();
 
 var app = builder.Build();
 

@@ -1,0 +1,15 @@
+﻿.card-form {
+    margin: 1rem 0;
+}
+
+.card-form .form-title {
+    line-height: 1.2rem;
+    font-size: 1.4rem;
+    text-transform: uppercase;
+    padding: .75rem 0;
+}
+
+.card-form button[type="submit"]{
+    padding: .75rem 4rem;
+    font-size: 1.15rem;
+}

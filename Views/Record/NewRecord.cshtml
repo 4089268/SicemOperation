@@ -1,119 +1,146 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model SicemOperation.Models.NewRecordRequest
+@{
+    ViewData["Title"] = "Registrar Incidencia";
 }
 
 <div class="text-center">
-    <h1 class="display-7 text-uppercase">Registrar Captura</h1>
+    <h1 class="display-7 text-uppercase">Registro de Incidencia Diaria</h1>
+    <h4>@DateTime.Now.ToLongDateString() @DateTime.Now.ToLongTimeString()</h4>
 </div>
 
-<form action="#" id="basicform" data-parsley-validate="" class="mt-2 d-flex flex-column">
+@using(Html.BeginForm("NewRecord", "Record", FormMethod.Post, new { @class="mt-2 d-flex flex-column" })){
+    @if(!string.IsNullOrEmpty(ViewBag.Message)){
+        <div class="alert w-100 max-w-screen-xl mx-auto @ViewBag.MessageClass" role="alert">
+            @ViewBag.Message
+        </div>
+    }
     
-    <div class="card mb-1 w-100 max-w-screen-xl mx-auto">
-        <h5 class="card-header text-center">Fugas</h5>
+    <div class="card-form card w-100 max-w-screen-xl mx-auto">
+        <h5 class="card-header text-center form-title">Fugas</h5>
         <div class="card-body container">
             <div class="row">
                 <div class="form-group col-3 d-flex flex-column justify-content-end">
                     <label for="fuga-toma-domiciliaria">En Tomas domiciliarias</label>
-                    <input id="fuga-toma-domiciliaria" type="number" name="fuga-toma-domiciliaria" data-parsley-trigger="change" required="" placeholder="#" class="form-control">
+                    @Html.TextBoxFor(model => model.FugaTomaDomiciliaria, new { @type = "number", @class = "form-control", @id = "fuga-toma-domiciliaria", @min="0", @step="1" })
+                    @Html.ValidationMessageFor( model => model.FugaTomaDomiciliaria, null, new { @class="text-danger"})
                 </div>
                 <div class="form-group col-3 d-flex flex-column justify-content-end">
                     <label for="fuga-linea-conduccion">En Lineas de Conduccion</label>
-                    <input id="fuga-linea-conduccion" type="number" name="fuga-linea-conduccion" data-parsley-trigger="change" required="" placeholder="#" class="form-control">
+                    @Html.TextBoxFor(model => model.FugaLineaConduccion, new { @type = "number", @class = "form-control", @id = "fuga-linea-conduccion", @min="0", @step="1" })
+                    @Html.ValidationMessageFor( model => model.FugaLineaConduccion, null, new { @class="text-danger"})
                 </div>
                 <div class="form-group col-3 d-flex flex-column justify-content-end">
                     <label for="fuga-linea-distribucion">En Redes de Distribución</label>
-                    <input id="fuga-linea-distribucion" type="number" name="fuga-linea-distribucion" data-parsley-trigger="change" required="" placeholder="#" class="form-control">
+                    @Html.TextBoxFor(model => model.FugaLineaDistribucion, new { @type = "number", @class = "form-control", @id = "fuga-linea-distribucion", @min="0", @step="1" })
+                    @Html.ValidationMessageFor( model => model.FugaLineaDistribucion, null, new { @class="text-danger"})
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="card mb-1 w-100 max-w-screen-xl mx-auto">
-        <h5 class="card-header text-center" style="line-height: 1.2rem;">Fallas de equipos electromecánicos en agua potable.</h5>
+    <div class="card-form card w-100 max-w-screen-xl mx-auto">
+        <h5 class="card-header text-center form-title">Fallas de equipos electromecánicos en agua potable.</h5>
         <div class="card-body container">
             <div class="row">
                 <div class="form-group col-3 d-flex flex-column justify-content-end">
                     <label for="falla-agua-potable-electrica">Subestaciones Electricas (Transformadores, cuchillas, etc.)</label>
-                    <input id="falla-agua-potable-electrica" type="number" name="falla-agua-potable-electrica" data-parsley-trigger="change" required="" placeholder="#" class="form-control">
+                    @Html.TextBoxFor(model => model.FallaAguaPotableElectrica, new { @type = "number", @class = "form-control", @id = "falla-agua-potable-electrica", @min="0", @step="1" })
+                    @Html.ValidationMessageFor( model => model.FallaAguaPotableElectrica, null, new { @class="text-danger"})
                 </div>
                 <div class="form-group col-3 d-flex flex-column justify-content-end">
                     <label for="falla-agua-potable-centro">Centro de Control Motores ( Arrancadores)</label>
-                    <input id="falla-agua-potable-centro" type="number" name="falla-agua-potable-centro" data-parsley-trigger="change" required="" placeholder="#" class="form-control">
+                    @Html.TextBoxFor(model => model.FallaAguaPotableCentroControl, new { @type = "number", @class = "form-control", @id = "falla-agua-potable-centro", @min="0", @step="1" })
+                    @Html.ValidationMessageFor( model => model.FallaAguaPotableCentroControl, null, new { @class="text-danger"})
                 </div>
                 <div class="form-group col-3 d-flex flex-column justify-content-end">
                     <label for="falla-agua-potable-bombeo">Equipo de Bombeo</label>
-                    <input id="falla-agua-potable-bombeo" type="number" name="falla-agua-potable-bombeo" data-parsley-trigger="change" required="" placeholder="#" class="form-control">
+                    @Html.TextBoxFor(model => model.FallaAguaPotableBombeo, new { @type = "number", @class = "form-control", @id = "falla-agua-potable-bombeo", @min="0", @step="1" })
+                    @Html.ValidationMessageFor( model => model.FallaAguaPotableBombeo, null, new { @class="text-danger"})
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="card mb-1 w-100 max-w-screen-xl mx-auto">
-        <h5 class="card-header text-center" style="line-height: 1.2rem;">Fallas de equipos electromecánicos en aguas residuales.</h5>
+    <div class="card-form card w-100 max-w-screen-xl mx-auto">
+        <h5 class="card-header text-center form-title">Fallas de equipos electromecánicos en aguas residuales.</h5>
         <div class="card-body container">
             <div class="row">
                 <div class="form-group col-3 d-flex flex-column justify-content-end">
                     <label for="falla-agua-residual-electrica">Subestaciones Electricas (Transformadores, cuchillas, etc.)</label>
-                    <input id="falla-agua-residual-electrica" type="number" name="falla-agua-residual-electrica" data-parsley-trigger="change" required="" placeholder="#" class="form-control">
+                    @Html.TextBoxFor(model => model.FallaAguaResidualPotableElectrica, new { @type = "number", @class = "form-control", @id = "falla-agua-residual-electrica", @min="0", @step="1" })
+                    @Html.ValidationMessageFor( model => model.FallaAguaResidualPotableElectrica, null, new { @class="text-danger"})
                 </div>
                 <div class="form-group col-3 d-flex flex-column justify-content-end">
                     <label for="falla-agua-residual-centro">Centro de Control Motores (Arrancadores)</label>
-                    <input id="falla-agua-residual-centro" type="number" name="falla-agua-residual-centro" data-parsley-trigger="change" required="" placeholder="#" class="form-control">
+                    @Html.TextBoxFor(model => model.FallaAguaResidualCentroControl, new { @type = "number", @class = "form-control", @id = "falla-agua-residual-centro", @min="0", @step="1" })
+                    @Html.ValidationMessageFor( model => model.FallaAguaResidualCentroControl, null, new { @class="text-danger"})
                 </div>
                 <div class="form-group col-3 d-flex flex-column justify-content-end">
                     <label for="falla-agua-residual-bombeo">Equipo de Bombeo (motor-bomba)</label>
-                    <input id="falla-agua-residual-bombeo" type="number" name="falla-agua-residual-bombeo" data-parsley-trigger="change" required="" placeholder="#" class="form-control">
+                    @Html.TextBoxFor(model => model.FallaAguaResidualBombeo, new { @type = "number", @class = "form-control", @id = "falla-agua-residual-bombeo", @min="0", @step="1" })
+                    @Html.ValidationMessageFor( model => model.FallaAguaResidualBombeo, null, new { @class="text-danger"})
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="card mb-1 w-100 max-w-screen-xl mx-auto">
-        <h5 class="card-header text-center" style="line-height: 1.2rem;">Recolección aguas residuales.</h5>
+    <div class="card-form card w-100 max-w-screen-xl mx-auto">
+        <h5 class="card-header text-center form-title">Recolección aguas residuales.</h5>
         <div class="card-body container">
             <div class="row">
                 <div class="form-group col-3 d-flex flex-column justify-content-end">
                     <label for="recoleccion-residual-atendido">No. de Rebosamientos de Agua Residuales Atendidos</label>
-                    <input id="recoleccion-residual-atendido" type="number" name="recoleccion-residual-atendido" data-parsley-trigger="change" required="" placeholder="#" class="form-control">
+                    @Html.TextBoxFor(model => model.RecoleccionResidualAtendido, new { @type = "number", @class = "form-control", @id = "recoleccion-residual-atendido", @min="0", @step="1" })
+                    @Html.ValidationMessageFor( model => model.RecoleccionResidualAtendido, null, new { @class="text-danger"})
                 </div>
                 <div class="form-group col-3 d-flex flex-column justify-content-end">
                     <label for="recoleccion-residual-colectores">Colectores Desasolvador (mts)</label>
-                    <input id="recoleccion-residual-colectores" type="number" name="recoleccion-residual-colectores" data-parsley-trigger="change" required="" placeholder="#" class="form-control">
+                    @Html.TextBoxFor(model => model.RecoleccionResidualColector, new { @type = "number", @class = "form-control", @id = "recoleccion-residual-colectores", @min="0", @step="1" })
+                    @Html.ValidationMessageFor( model => model.RecoleccionResidualColector, null, new { @class="text-danger"})
                 </div>
                 <div class="form-group col-3 d-flex flex-column justify-content-end">
                     <label for="recoleccion-residual-visita">De Pozos de Visita Desosolvadors (No.)</label>
-                    <input id="recoleccion-residual-visita" type="number" name="recoleccion-residual-visita" data-parsley-trigger="change" required="" placeholder="#" class="form-control">
+                    @Html.TextBoxFor(model => model.RecoleccionResidualVisita, new { @type = "number", @class = "form-control", @id = "recoleccion-residual-visita", @min="0", @step="1" })
+                    @Html.ValidationMessageFor( model => model.RecoleccionResidualVisita, null, new { @class="text-danger"})
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="card mb-4 w-100 max-w-screen-xl mx-auto">
-        <h5 class="card-header text-center" style="line-height: 1.2rem;">Fallas en plantas de tratamiento de aguas residuales (Atendidas)</h5>
+    <div class="card-form card w-100 max-w-screen-xl mx-auto">
+        <h5 class="card-header text-center form-title">Fallas en plantas de tratamiento de aguas residuales (Atendidas)</h5>
         <div class="card-body container">
             <div class="row">
                 <div class="form-group col-4">
                     <label for="falla-tratamiento-equipos">Equipos en Pretratamiento</label>
-                    <input id="falla-tratamiento-equipos" type="number" name="falla-tratamiento-equipos" data-parsley-trigger="change" required="" placeholder="#" class="form-control">
+                    @Html.TextBoxFor(model => model.FallaTratamientoEquipos, new { @type = "number", @class = "form-control", @id = "falla-tratamiento-equipos", @min="0", @step="1" })
+                    @Html.ValidationMessageFor( model => model.FallaTratamientoEquipos, null, new { @class="text-danger"})
                 </div>
                 <div class="form-group col-4">
                     <label for="falla-tratamiento-aereacion">Sistema de Aereación (Sopladores y/o Difusores)</label>
-                    <input id="falla-tratamiento-aereacion" type="number" name="falla-tratamiento-aereacion" data-parsley-trigger="change" required="" placeholder="#" class="form-control">
+                    @Html.TextBoxFor(model => model.FallaTratamientoAereacion, new { @type = "number", @class = "form-control", @id = "falla-tratamiento-aereacion", @min="0", @step="1" })
+                    @Html.ValidationMessageFor( model => model.FallaTratamientoAereacion, null, new { @class="text-danger"})
                 </div>
                 <div class="form-group col-4">
                     <label for="falla-tratamiento-recirculacion">Equipos de Recirculacion</label>
-                    <input id="falla-tratamiento-recirculacion" type="number" name="falla-tratamiento-recirculacion" data-parsley-trigger="change" required="" placeholder="#" class="form-control">
+                    @Html.TextBoxFor(model => model.FallTratamientoRecirculacion, new { @type = "number", @class = "form-control", @id = "tratamiento-recirculacion", @min="0", @step="1" })
+                    @Html.ValidationMessageFor( model => model.FallTratamientoRecirculacion, null, new { @class="text-danger"})
                 </div>
                 <div class="form-group col-4">
                     <label for="falla-tratamiento-sedimentacion">Sistema Sedimentación</label>
-                    <input id="falla-tratamiento-sedimentacion" type="number" name="falla-tratamiento-sedimentacion" data-parsley-trigger="change" required="" placeholder="#" class="form-control">
+                    @Html.TextBoxFor(model => model.FallTratamientoSedimentacion, new { @type = "number", @class = "form-control", @id = "falla-tratamiento-sedimentacion", @min="0", @step="1" })
+                    @Html.ValidationMessageFor( model => model.FallTratamientoSedimentacion, null, new { @class="text-danger"})
                 </div>
                 <div class="form-group col-4">
                     <label for="falla-tratamiento-desinfeccion">Sistema de Desinfeccionón</label>
-                    <input id="falla-tratamiento-desinfeccion" type="number" name="falla-tratamiento-desinfeccion" data-parsley-trigger="change" required="" placeholder="#" class="form-control">
+                    @Html.TextBoxFor(model => model.FallTratamientoDesinfeccion, new { @type = "number", @class = "form-control", @id = "falla-tratamiento-desinfeccion", @min="0", @step="1" })
+                    @Html.ValidationMessageFor( model => model.FallTratamientoDesinfeccion, null, new { @class="text-danger"})
                 </div>
             </div>
         </div>
     </div>
-    
-</form>
+
+    <div class="card-form d-flex justify-content-center w-100 max-w-screen-xl mx-auto">
+        <button type="submit" class="btn btn-primary rounded shadow">Regitar Incidencias</button>
+    </div>
+}

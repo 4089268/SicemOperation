@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using System.Security.Claims
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -116,16 +117,18 @@
                             </ul>
                         </li>
                         <li class="nav-item dropdown nav-user">
-                            <a class="nav-link nav-user-img" href="#" id="navbarDropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="/images/avatar-1.jpg" alt="" class="user-avatar-md rounded-circle"></a>
+                            <a class="nav-link nav-user-img" href="#" id="navbarDropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <img src="@User.FindFirst(ClaimTypes.Actor)?.Value" alt="" class="user-avatar-md rounded-circle">
+                            </a>
                             <div class="dropdown-menu dropdown-menu-right nav-user-dropdown" aria-labelledby="navbarDropdownMenuLink2">
                                 <div class="nav-user-info">
-                                    <h5 class="mb-0 text-white nav-user-name">
-                                    John Abraham</h5>
-                                    <span class="status"></span><span class="ml-2">Available</span>
+                                    <h5 class="mb-0 text-white nav-user-name text-uppercase">@User.FindFirst(ClaimTypes.Name)?.Value</h5>
+                                    <span class="status"></span>
+                                    <span class="ml-2">Available</span>
                                 </div>
                                 <a class="dropdown-item" href="#"><i class="fas fa-user mr-2"></i>Account</a>
-                                <a class="dropdown-item" href="#"><i class="fas fa-cog mr-2"></i>Setting</a>
-                                <a class="dropdown-item" href="#"><i class="fas fa-power-off mr-2"></i>Logout</a>
+                                @* <a class="dropdown-item" href="#"><i class="fas fa-cog mr-2"></i>Setting</a> *@
+                                <a class="dropdown-item" asp-action="Logout" asp-controller="Auth"><i class="fas fa-power-off mr-2"></i>Cerrar Session</a>
                             </div>
                         </li>
                     </ul>
@@ -160,10 +163,7 @@
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="/vendor/bootstrap/js/bootstrap.bundle.js"></script>
-    @* <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script> *@
     <script src="~/js/site.js" asp-append-version="true"></script>
-
-    <!-- Optional JavaScript -->
     <script src="/vendor/slimscroll/jquery.slimscroll.js"></script>
     <script src="/js/main-js.js"></script>
 

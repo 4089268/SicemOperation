@@ -44,7 +44,7 @@ namespace SicemOperation.Data
                 .IsRequired();
             
 
-            // * Seed DB
+            // * defaul test office
             modelBuilder.Entity<Oficina>().HasData(
                 new Oficina
                 {
@@ -53,13 +53,16 @@ namespace SicemOperation.Data
                 }
             );
 
+
+            // * default user
+            var hashedPassword = BCrypt.Net.BCrypt.HashPassword("password123#");
             modelBuilder.Entity<Usuario>().HasData(
                 new Usuario
                 {
                     Id = 1,
-                    Nombre = "admin",
+                    Nombre = "administrador",
                     Correo = "admin@email.com",
-                    Password = "admin"
+                    Password = hashedPassword
                 }
             );
 

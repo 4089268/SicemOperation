@@ -1,9 +1,11 @@
 using System.Diagnostics;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SicemOperation.Models;
 
 namespace SicemOperation.Controllers;
 
+[Authorize]
 public class RecordController : Controller
 {
     private readonly ILogger<RecordController> _logger;

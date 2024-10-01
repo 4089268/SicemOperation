@@ -16,7 +16,6 @@ namespace SicemOperation.Entities
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public required string Nombre { get; set; }
-        public string? Apellidos { get; set; }
 
         [DataType(DataType.EmailAddress)]
         public required string Correo { get; set; }

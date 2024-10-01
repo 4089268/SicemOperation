@@ -1,5 +1,7 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using SicemOperation.Data;
+using SicemOperation.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +10,16 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<SicemOperationContext>( options =>{
     options.UseSqlServer( builder.Configuration.GetConnectionString("SicemOperation") );
 });
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.ExpireTimeSpan = TimeSpan.FromMinutes(15);
+        options.SlidingExpiration = true;
+        options.AccessDeniedPath = "/";
+        options.LoginPath = "/Auth/Login";
+    }
+);
+builder.Services.AddScoped<AuthService>();
 
 var app = builder.Build();
 
@@ -24,6 +36,10 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseCookiePolicy(new CookiePolicyOptions {
+    MinimumSameSitePolicy = SameSiteMode.Lax,
+});
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

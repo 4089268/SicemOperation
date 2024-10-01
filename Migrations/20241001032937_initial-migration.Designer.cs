@@ -12,8 +12,8 @@ using SicemOperation.Data;
 namespace SicemOperation.Migrations
 {
     [DbContext(typeof(SicemOperationContext))]
-    [Migration("20240907040412_initial_migration")]
-    partial class initial_migration
+    [Migration("20241001032937_initial-migration")]
+    partial class initialmigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -179,10 +179,6 @@ namespace SicemOperation.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Apellidos")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("apellidos");
-
                     b.Property<string>("Correo")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)")
@@ -211,8 +207,8 @@ namespace SicemOperation.Migrations
                         {
                             Id = 1,
                             Correo = "admin@email.com",
-                            Nombre = "admin",
-                            Password = "admin"
+                            Nombre = "administrador",
+                            Password = "$2a$11$BYxsQUF3zrUHF7z858ABwOMT.KxMceZAqC07t67Xy.IpxPayP7adu"
                         });
                 });
 

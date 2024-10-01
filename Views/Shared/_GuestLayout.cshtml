@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - SicemOperation</title>
+
+    <!-- Bootstrap CSS -->
+    @* <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" /> *@
+    <link rel="stylesheet" href="/vendor/bootstrap/css/bootstrap.min.css">
+    <link href="/vendor/fonts/circular-std/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/vendor/fonts/fontawesome/css/fontawesome-all.css">
+
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/SicemOperation.styles.css" asp-append-version="true" />
+    
+</head>
+<body>
+
+    <div>
+
+        <div class="container-fluid dashboard-content align-content-center" style="height: 75vh;">
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
+        </div>
+        
+        <div class="footer fixed-bottom">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="container text-center">
+                        &copy; 2024 - Sicem Operation
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="/vendor/bootstrap/js/bootstrap.bundle.js"></script>
+    <script src="/vendor/slimscroll/jquery.slimscroll.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="/js/main-js.js"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

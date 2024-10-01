@@ -176,10 +176,6 @@ namespace SicemOperation.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Apellidos")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("apellidos");
-
                     b.Property<string>("Correo")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)")
@@ -208,8 +204,8 @@ namespace SicemOperation.Migrations
                         {
                             Id = 1,
                             Correo = "admin@email.com",
-                            Nombre = "admin",
-                            Password = "admin"
+                            Nombre = "administrador",
+                            Password = "$2a$11$BYxsQUF3zrUHF7z858ABwOMT.KxMceZAqC07t67Xy.IpxPayP7adu"
                         });
                 });
 

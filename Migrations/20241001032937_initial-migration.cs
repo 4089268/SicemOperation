@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace SicemOperation.Migrations
 {
     /// <inheritdoc />
-    public partial class initial_migration : Migration
+    public partial class initialmigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -42,7 +42,6 @@ namespace SicemOperation.Migrations
                     id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     nombre = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    apellidos = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     correo = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     password = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     inactivo = table.Column<bool>(type: "bit", nullable: true)
@@ -102,8 +101,8 @@ namespace SicemOperation.Migrations
             migrationBuilder.InsertData(
                 schema: "System",
                 table: "Usuarios",
-                columns: new[] { "id", "apellidos", "correo", "inactivo", "nombre", "password" },
-                values: new object[] { 1, null, "admin@email.com", null, "admin", "admin" });
+                columns: new[] { "id", "correo", "inactivo", "nombre", "password" },
+                values: new object[] { 1, "admin@email.com", null, "administrador", "$2a$11$BYxsQUF3zrUHF7z858ABwOMT.KxMceZAqC07t67Xy.IpxPayP7adu" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Incidencia_oficinaId",

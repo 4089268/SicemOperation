@@ -1,82 +1,26 @@
-@model dynamic
-
+@model IEnumerable<Dictionary<string, object>>
+@{
+    var totalRecords = ((Array) Model.First()["records"]).Length;
+}
 <div class="table-responsive">
     <table class="table table-striped table-bordered">
         <thead>
             <tr>
                 <th>Incidencia</th>
-                @for(int day = ((int)Model.InitialDate); day <= ((int)Model.EndDate); day++ ){
+                @for(int day = 1; day <= totalRecords; day++ ){
                     <th class="text-center">@day</th>
                 }
             </tr>
         </thead>
         <tbody>
+            @foreach(var incidentType in Model){
             <tr>
-                <td>FugaTomaDomiciliaria</td>
-                @for(int day = ((int)Model.InitialDate); day <= ( (int)Model.EndDate); day++ ){
-                    <td class="text-center">0</td>
+                <td>@incidentType["name"].ToString()</td>
+                @for(int i = 1; i<=totalRecords; i++ ){
+                    <td class="text-center">@((Array)incidentType["records"])[i]</td>
                 }
             </tr>
-            <tr>
-                <td>FugaTomaDomiciliaria</td>
-                @for(int day = ((int)Model.InitialDate); day <= ( (int)Model.EndDate); day++ ){
-                    <td class="text-center">0</td>
-                }
-            </tr>
-            <tr>
-                <td>FugaTomaDomiciliaria</td>
-                @for(int day = ((int)Model.InitialDate); day <= ( (int)Model.EndDate); day++ ){
-                    <td class="text-center">0</td>
-                }
-            </tr>
-            <tr>
-                <td>FugaTomaDomiciliaria</td>
-                @for(int day = ((int)Model.InitialDate); day <= ( (int)Model.EndDate); day++ ){
-                    <td class="text-center">0</td>
-                }
-            </tr>
-            <tr>
-                <td>FugaTomaDomiciliaria</td>
-                @for(int day = ((int)Model.InitialDate); day <= ( (int)Model.EndDate); day++ ){
-                    <td class="text-center">0</td>
-                }
-            </tr>
-            <tr>
-                <td>FugaTomaDomiciliaria</td>
-                @for(int day = ((int)Model.InitialDate); day <= ( (int)Model.EndDate); day++ ){
-                    <td class="text-center">0</td>
-                }
-            </tr>
-            <tr>
-                <td>FugaTomaDomiciliaria</td>
-                @for(int day = ((int)Model.InitialDate); day <= ( (int)Model.EndDate); day++ ){
-                    <td class="text-center">0</td>
-                }
-            </tr>
-            <tr>
-                <td>FugaTomaDomiciliaria</td>
-                @for(int day = ((int)Model.InitialDate); day <= ( (int)Model.EndDate); day++ ){
-                    <td class="text-center">0</td>
-                }
-            </tr>
-            <tr>
-                <td>FugaTomaDomiciliaria</td>
-                @for(int day = ((int)Model.InitialDate); day <= ( (int)Model.EndDate); day++ ){
-                    <td class="text-center">0</td>
-                }
-            </tr>
-            <tr>
-                <td>FugaTomaDomiciliaria</td>
-                @for(int day = ((int)Model.InitialDate); day <= ( (int)Model.EndDate); day++ ){
-                    <td class="text-center">0</td>
-                }
-            </tr>
-            <tr>
-                <td>FugaTomaDomiciliaria</td>
-                @for(int day = ((int)Model.InitialDate); day <= ( (int)Model.EndDate); day++ ){
-                    <td class="text-center">0</td>
-                }
-            </tr>
+            }
         </tbody>
     </table>
 </div>

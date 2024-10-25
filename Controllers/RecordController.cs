@@ -75,14 +75,11 @@ public class RecordController : Controller
 
     public ActionResult GetIncidentGrid(int year, int month ){
 
-        var targetDate = new DateTime(year, month, 1);
-
         // * get the incidents of the month
-        int[] daysRange = SicemOperation.Helpers.RangeDate.GetRange(targetDate);
+        var incidentsGrid = this.incidenceService.IncidentsTypesGetIncidentsGrid(year, month);
 
         return PartialView("~/Views/Record/Partials/IncidentGrid.cshtml", new {
-            InitialDate = daysRange[0],
-            EndDate = daysRange[1]
+            IncidentsGrid = incidentsGrid
         });
     }
 

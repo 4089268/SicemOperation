@@ -1,3 +1,4 @@
+using System.Data.Entity;
 using System.Security.Claims;
 using SicemOperation.Data;
 using SicemOperation.Entities;
@@ -31,12 +32,39 @@ namespace SicemOperation.Services
             sicemOperationContext.SaveChanges();
         }
 
-        public IEnumerable<Dictionary<string,object>> IncidentsTypesGetIncidentsGrid( int totalDays, int year, int month ){
-            
-            // * get the incidents types
-            var incidentTypes = IncidentsTypes.GetIncidentsTypes();
+        public IEnumerable<Dictionary<string,object>> IncidentsTypesGetIncidentsGrid(int year, int month ){
+            var response = new List<Dictionary<string, object>>();
 
-            return incidentTypes;
+            var dateRange = SicemOperation.Helpers.RangeDate.GetRange(new DateTime(year, month, 1));
+            var _desde = new DateTime(year, month, 1);
+            var _hasta = new DateTime(year, month, dateRange[1]);
+
+            // * get the incidents types
+            var incidentTypes = this.sicemOperationContext.TiposIncidencia.ToList();
+            foreach(var incidentType in incidentTypes){
+                
+                // * get the incidents of the current month and the current incidenty type
+                var incidents = this.sicemOperationContext.Incidencias
+                    .Include( item => item.TipoIncidencia)
+                    .Where( item => item.Eliminado == null && item.Fecha.Date >= _desde && item.Fecha.Date <= _hasta)
+                    .Where( item => item.TipoIncidencia == incidentType)
+                    .GroupBy( item => item.Fecha.Date)
+                    .ToList();
+
+                // * created a array that represent the total days of the month and set the toal incidents
+                var records = new int[dateRange[1]];
+                foreach(var group in incidents){
+                    records[ group.Key.Day - 1] = group.Sum( item => item.Valor);
+                }
+
+                response.Add( new Dictionary<string, object>{
+                    {"group", incidentType.Grupo},
+                    {"name", incidentType.Descripcion},
+                    {"records", records}
+                });
+            }
+
+            return response;
         }
 
 

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SicemOperation.Data;
 
@@ -11,9 +12,11 @@ using SicemOperation.Data;
 namespace SicemOperation.Migrations
 {
     [DbContext(typeof(SicemOperationContext))]
-    partial class SicemOperationContextModelSnapshot : ModelSnapshot
+    [Migration("20241025044036_initial-migration")]
+    partial class initialmigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -4,11 +4,16 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using SicemOperation.Data.Validations;
 
 namespace SicemOperation.Models
 {
     public class NewRecordRequest
     {
+        
+        [Required(ErrorMessage = "El elemento es requerido")]
+        [DataType(DataType.Date)]
+        [DeteCurrentMonthaAndBeforeToday]
         public DateTime Fecha {get;set;}
 
         [Required(ErrorMessage = "El elemento es requerido")]

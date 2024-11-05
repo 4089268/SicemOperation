@@ -5,7 +5,7 @@
 
 <div class="text-center">
     <h1 class="display-7 text-uppercase">Registro de Incidencia Diaria</h1>
-    <h4>@DateTime.Now.ToLongDateString() @DateTime.Now.ToLongTimeString()</h4>
+    @* <h4>@DateTime.Now.ToLongDateString() @DateTime.Now.ToLongTimeString()</h4> *@
 </div>
 
 @using(Html.BeginForm("NewRecord", "Record", FormMethod.Post, new { @class="mt-2 d-flex flex-column" })){
@@ -14,6 +14,18 @@
             @ViewBag.Message
         </div>
     }
+
+    <div class="card-form card w-100 max-w-screen-xl mx-auto">
+        <div class="card-body container">
+            <div class="row">
+                <div class="form-group col-6 d-flex flex-column justify-content-end">
+                    <label for="date">Fecha de aplicacion</label>
+                    @Html.TextBoxFor(model => model.Fecha, new { @type = "Date", @class = "form-control", @id = "date" })
+                    @Html.ValidationMessageFor( model => model.Fecha, null, new { @class="text-danger"})
+                </div>
+            </div>
+        </div>
+    </div>
     
     <div class="card-form card w-100 max-w-screen-xl mx-auto">
         <h5 class="card-header text-center form-title">Fugas</h5>
@@ -141,6 +153,20 @@
     </div>
 
     <div class="card-form d-flex justify-content-center w-100 max-w-screen-xl mx-auto">
-        <button type="submit" class="btn btn-primary rounded shadow">Regitar Incidencias</button>
+        <button type="submit" class="btn btn-primary rounded shadow">Registrar Incidencias</button>
     </div>
+}
+
+
+@section scripts {
+    <script>
+        $(document).ready(function(){
+            if( !$("#date").val()){
+                const targetDate = new Date();
+                targetDate.setDate(targetDate.getDate() - 1);
+                const formattedDate = targetDate.toISOString().split("T")[0];
+                $("#date").val(formattedDate);
+            }
+        });
+    </script>
 }

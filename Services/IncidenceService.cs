@@ -32,12 +32,17 @@ namespace SicemOperation.Services
             sicemOperationContext.SaveChanges();
         }
 
-        public IEnumerable<Dictionary<string,object>> IncidentsTypesGetIncidentsGrid(int year, int month ){
-            var response = new List<Dictionary<string, object>>();
+        public IncidentGridModel<int> IncidentsTypesGetIncidentsGrid(int year, int month ){
 
             var dateRange = SicemOperation.Helpers.RangeDate.GetRange(new DateTime(year, month, 1));
-            var _desde = new DateTime(year, month, 1);
-            var _hasta = new DateTime(year, month, dateRange[1]);
+            
+            // * prepare response
+            var response = new IncidentGridModel<int>();
+            response.TotalDays =  dateRange[1];
+            response.From = new DateTime(year, month, 1);
+            response.To = new DateTime(year, month, dateRange[1]);
+            
+            var elements = new List<IncidentGridElementModel<int>>();
 
             // * get the incidents types
             var incidentTypes = this.sicemOperationContext.TiposIncidencia.ToList();
@@ -46,7 +51,7 @@ namespace SicemOperation.Services
                 // * get the incidents of the current month and the current incidenty type
                 var incidents = this.sicemOperationContext.Incidencias
                     .Include( item => item.TipoIncidencia)
-                    .Where( item => item.Eliminado == null && item.Fecha.Date >= _desde && item.Fecha.Date <= _hasta)
+                    .Where( item => item.Eliminado == null && item.Fecha.Date >= response.From && item.Fecha.Date <= response.To)
                     .Where( item => item.TipoIncidencia == incidentType)
                     .GroupBy( item => item.Fecha.Date)
                     .ToList();
@@ -57,12 +62,14 @@ namespace SicemOperation.Services
                     records[ group.Key.Day - 1] = group.Sum( item => item.Valor);
                 }
 
-                response.Add( new Dictionary<string, object>{
-                    {"group", incidentType.Grupo},
-                    {"name", incidentType.Descripcion},
-                    {"records", records}
+                elements.Add( new IncidentGridElementModel<int>{
+                    Group = incidentType.Grupo,
+                    IncidentName = incidentType.Descripcion,
+                    Data = records
                 });
             }
+
+            response.Elements = elements;
 
             return response;
         }

@@ -76,11 +76,16 @@ public class RecordController : Controller
     public ActionResult GetIncidentGrid(int year, int month ){
 
         // * get the incidents of the month
-        var incidentsGrid = this.incidenceService.IncidentsTypesGetIncidentsGrid(year, month);
+        try {
+            var incidentsGrid = this.incidenceService.IncidentsTypesGetIncidentsGrid(year, month);
+            return PartialView("~/Views/Record/Partials/IncidentGrid.cshtml", incidentsGrid);
 
-        return PartialView("~/Views/Record/Partials/IncidentGrid.cshtml", new {
-            IncidentsGrid = incidentsGrid
-        });
+        }catch(Exception err){
+            this._logger.LogError(err, "Fail at get the incident grid data");
+            ViewData["ErrorTitle"] = "Error resumen incidencias por mes";
+            ViewData["ErrorMessage"] = "Hubo un error al obtener el resumen de incidencias, intente de nuevo o comuníquese con un administrador.";
+            return PartialView("~/Views/Shared/ErrorAlert.cshtml", new ErrorViewModel());
+        }
     }
 
     #endregion

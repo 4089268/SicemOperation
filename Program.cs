@@ -1,5 +1,8 @@
+using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using SicemOperation.Data;
 using SicemOperation.Services;
 
@@ -10,15 +13,25 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<SicemOperationContext>( options =>{
     options.UseSqlServer( builder.Configuration.GetConnectionString("SicemOperation") );
 });
-builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-    .AddCookie(options =>
-    {
-        options.ExpireTimeSpan = TimeSpan.FromMinutes(15);
-        options.SlidingExpiration = true;
-        options.AccessDeniedPath = "/";
-        options.LoginPath = "/Auth/Login";
-    }
-);
+
+builder.Services.AddAuthorization();
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer( o => {
+        o.RequireHttpsMetadata = false;
+        o.Audience = builder.Configuration["Authentication:Audience"];
+        o.MetadataAddress = builder.Configuration["Authentication:MetadataAddress"]!;
+        o.TokenValidationParameters = new TokenValidationParameters {
+            ValidIssuer = builder.Configuration["Authentication:ValidIssuer"]
+        };
+        o.Events = new JwtBearerEvents {
+            OnChallenge = (context) => {
+                context.HandleResponse();
+                context.Response.Redirect( builder.Configuration["Keycloack:AuthorizationUrl"]! );
+                return Task.CompletedTask;
+            }
+        };
+    });
+
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<AuthService>();
 builder.Services.AddScoped<IncidenceService>();
@@ -41,6 +54,12 @@ app.UseRouting();
 app.UseCookiePolicy(new CookiePolicyOptions {
     MinimumSameSitePolicy = SameSiteMode.Lax,
 });
+
+// * test the user data
+app.MapGet("users/me", (ClaimsPrincipal claimsPrincipal) => {
+    return claimsPrincipal.Claims.ToDictionary(c => c.Type, c => c.Value);
+}).RequireAuthorization();
+
 app.UseAuthentication();
 app.UseAuthorization();
 

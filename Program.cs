@@ -3,6 +3,10 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
+using Keycloak.AuthServices.Authentication;
+using Keycloak.AuthServices.Authorization;
 using SicemOperation.Data;
 using SicemOperation.Services;
 
@@ -14,23 +18,31 @@ builder.Services.AddDbContext<SicemOperationContext>( options =>{
     options.UseSqlServer( builder.Configuration.GetConnectionString("SicemOperation") );
 });
 
-builder.Services.AddAuthorization();
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer( o => {
-        o.RequireHttpsMetadata = false;
-        o.Audience = builder.Configuration["Authentication:Audience"];
-        o.MetadataAddress = builder.Configuration["Authentication:MetadataAddress"]!;
-        o.TokenValidationParameters = new TokenValidationParameters {
-            ValidIssuer = builder.Configuration["Authentication:ValidIssuer"]
-        };
-        o.Events = new JwtBearerEvents {
-            OnChallenge = (context) => {
-                context.HandleResponse();
-                context.Response.Redirect( builder.Configuration["Keycloack:AuthorizationUrl"]! );
-                return Task.CompletedTask;
-            }
-        };
-    });
+// * configure authentication
+builder.Services.Configure<CookiePolicyOptions>( o => {
+    o.CheckConsentNeeded = (context) => true;
+    o.MinimumSameSitePolicy = SameSiteMode.Unspecified;
+});
+builder.Services
+    .AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
+    .AddKeycloakWebApp(
+        builder.Configuration.GetSection(KeycloakAuthenticationOptions.Section),
+        configureOpenIdConnectOptions: options => {
+            options.SaveTokens = true;
+            options.ResponseType = OpenIdConnectResponseType.Code;
+            options.Events = new OpenIdConnectEvents {
+                OnSignedOutCallbackRedirect = context => {
+                    context.Response.Redirect("/");
+                    context.HandleResponse();
+                    return Task.CompletedTask;
+                }
+            };
+        }
+    );
+
+builder.Services.AddKeycloakAuthorization(builder.Configuration)
+    .AddAuthorizationBuilder()
+    .AddPolicy("PrivacyAccess", policy => policy.RequireRealmRoles("Admin"));
 
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<AuthService>();
@@ -55,10 +67,6 @@ app.UseCookiePolicy(new CookiePolicyOptions {
     MinimumSameSitePolicy = SameSiteMode.Lax,
 });
 
-// * test the user data
-app.MapGet("users/me", (ClaimsPrincipal claimsPrincipal) => {
-    return claimsPrincipal.Claims.ToDictionary(c => c.Type, c => c.Value);
-}).RequireAuthorization();
 
 app.UseAuthentication();
 app.UseAuthorization();

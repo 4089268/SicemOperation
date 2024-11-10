@@ -17,25 +17,18 @@
     
 </head>
 <body>
-
-    <div>
-
-        <div class="container-fluid dashboard-content align-content-center" style="height: 75vh;">
-            <main role="main" class="pb-3">
+    <div style="height: 100vh">
+        <div class="container-fluid dashboard-content align-content-center" style="height: 100%;">
+            <main role="main" class="">
                 @RenderBody()
             </main>
         </div>
-        
-        <div class="footer fixed-bottom">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="container text-center">
-                        &copy; 2024 - Sicem Operation
-                    </div>
-                </div>
-            </div>
-        </div>
+    </div>
 
+    <div class="footer fixed bottom position-absolute">
+        <div class="container text-center">
+            &copy; 2024 - Sicem Operation
+        </div>
     </div>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

@@ -33,11 +33,11 @@ public class AuthController(ILogger<AuthController> _logger) : Controller
         var tokenNames = tokens.Select( token => token.Name).ToArray();
         this.logger.LogInformation("Token Names: {TokenNames}", string.Join(", ", tokenNames));
 
-        return SignOut(
-            new AuthenticationProperties {
-                RedirectUri = "/Home/Index",
+        return this.SignOut(
+            new AuthenticationProperties
+            {
+                RedirectUri = "/",
                 Items = { { "id_token_hint", idToken } }
-                
             },
             CookieAuthenticationDefaults.AuthenticationScheme,
             OpenIdConnectDefaults.AuthenticationScheme

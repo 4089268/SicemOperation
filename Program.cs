@@ -31,8 +31,9 @@ builder.Services
             options.SaveTokens = true;
             options.ResponseType = OpenIdConnectResponseType.Code;
             options.Events = new OpenIdConnectEvents {
-                OnSignedOutCallbackRedirect = context => {
-                    context.Response.Redirect("/");
+                OnSignedOutCallbackRedirect = context =>
+                {
+                    context.Response.Redirect("/Home/Index");
                     context.HandleResponse();
                     return Task.CompletedTask;
                 }

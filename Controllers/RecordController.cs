@@ -71,6 +71,54 @@ public class RecordController : Controller
         });
     }
 
+
+    [AllowAnonymous]
+    [Route("/record/resume-chart")]
+    [HttpGet]
+    public IActionResult ResumeChart([FromQuery] int year, [FromQuery] int month){
+        var incidentsGrid = this.incidenceService.IncidentsTypesGetIncidentsGrid(year, month);
+
+        var groupedData = new List<dynamic>();
+        foreach(var gp in incidentsGrid.Elements.GroupBy(item => item.Group)){
+            var _days = new int[incidentsGrid.TotalDays];
+            foreach(var _data in gp){
+                for(int i=0; i< _data.Data.Count(); i++){
+                    _days[i] += _data.Data.ElementAt(i);
+                }
+            }
+            groupedData.Add( new {
+                Label = gp.Key.Substring(1,2),
+                Days = _days,
+            });
+        }   
+
+        var Labels = new List<string>();
+        for(int i=0; i<incidentsGrid.TotalDays;i++){
+            Labels.Add((i+1).ToString());
+        }
+        var SeriesData = groupedData.Select( item => item.Days);
+        
+
+        // // prepare the response
+        // var SeriesData = new List<dynamic>();
+        // for(int i=0; i<incidentsGrid.TotalDays; i++){
+        //     var arrDays = new int[groupedData.Count];
+        //     for(int j=0; j<groupedData.Count; j++){
+        //         arrDays[j] = groupedData.ElementAt(j).Days[i];
+        //     }
+        //     SeriesData.Add(arrDays);
+        // };
+
+        return Ok(
+            new {
+                // Labels = groupedData.Select(item => item.Label),
+                Labels,
+                Series = SeriesData
+            }
+        );
+
+    }
+
     #region partial views
 
     public ActionResult GetIncidentGrid(int year, int month ){

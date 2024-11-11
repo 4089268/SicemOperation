@@ -1,27 +1,72 @@
 ﻿@{
     ViewData["Title"] = "Historial Capturas";
+    ViewData["PageTitle"] = "Historial Capturas";
+
+    var breadcrumbElements = new List<dynamic>();
+    breadcrumbElements.Add(new { Title = "Capturas", Route ="" });
 }
 
-<div class="text-center">
-    <h1 class="display-7 text-uppercase">Historial Capturas</h1>
-</div>
+<partial name="PageHeader" model="@breadcrumbElements" />
 
-<div class="container-fluid card">
-    <div class="card-header">
-        <div class="d-flex align-items-center justify-content-center">
+<div class="container-fluid mt-3">
+    <div class="row">
+        <div class="col-12 d-flex align-items-center justify-content-center bg-white p-3 sticky-top shadow-sm rounded ">
             <button class="mx-2 btn rounded btn-sm" id="btnPrevMonth"><</button>
             <h5 class="mb-0 text-uppercase">Incidencias de <strong id="lblDate"></strong></h5>
             <button class="mx-2 btn rounded btn-sm" id="btnNextMonth">></button>
         </div>
     </div>
-    <div id="wrapper" class="card-body">
-        <div class="spinner-border" role="status">
-            <span class="visually-hidden">Loading...</span>
+</div>
+
+<div class="container-fluid mt-3">
+    <div class="row">
+        <div class="col-7">
+            <div class="card">
+                <h5 class="card-header">Horizontal Chart Bar</h5>
+                <div class="card-body">
+                    <div id="chartRecords" class="ct-chart-holes ct-golden-section"></div>
+                    @* <div id="chartRecords" class="ct-chart-horizontal ct-golden-section"></div> *@
+                </div>
+            </div>
         </div>
+
+        <div class="col-5">
+            <div class="card">
+                <div class="card-body">
+                    <div id='calendarRecords'></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12">
+            <div class="card">
+                <div id="wrapper" class="card-body">
+                    <div class="spinner-border" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
 
+@section styles {
+    <link href='/vendor/full-calendar/css/fullcalendar.css' rel='stylesheet' />
+    <link href='/vendor/full-calendar/css/fullcalendar.print.css' rel='stylesheet' media='print' />
+    <link rel="stylesheet" href="/vendor/charts/chartist-bundle/chartist.css">
+}
+
 @section scripts {
+    <script src='/vendor/full-calendar/js/jquery-ui.min.js'></script>
+
+
+    <script src='/vendor/full-calendar/js/moment.min.js'></script>
+    <script src='/vendor/full-calendar/js/fullcalendar.js'></script>
+    
+    <script src="/vendor/charts/chartist-bundle/chartist.min.js"></script>
+    <script src="/vendor/charts/chartist-bundle/Chartistjs.js"></script>
+
     <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
     <script src="/vendor/datatables/js/dataTables.bootstrap4.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js"></script>
@@ -30,7 +75,7 @@
     <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.html5.min.js"></script>
     <script src="https://cdn.datatables.net/rowgroup/1.0.4/js/dataTables.rowGroup.min.js"></script>
     <script src="https://cdn.datatables.net/fixedheader/3.1.5/js/dataTables.fixedHeader.min.js"></script>
-    
+
     <script>
         let targetDate = new Date('@Html.Raw(ViewBag.TargetDate)');
     </script>

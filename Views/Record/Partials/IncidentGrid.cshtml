@@ -8,6 +8,14 @@
     IEnumerable<IncidentGridElementModel<int>> GetElementsOfGroup(string groupName){
         return Model.Elements.Where( item => item.Group == groupName).ToList();
     }
+
+    string IncidentClassName(int el){
+        if(el > 0){
+            return "";
+        }else{
+            return "alert alert-danger";
+        }
+    }
 }
 
 <div class="table-responsive">
@@ -33,7 +41,7 @@
                     <tr>
                         <td>@incidentType.IncidentName</td>
                         @for(int i = 0; i < Model.TotalDays; i++ ){
-                            <td class="text-center">@incidentType.Data.ElementAt(i)</td>
+                            <td class="text-center @IncidentClassName(incidentType.Data.ElementAt(i))">@incidentType.Data.ElementAt(i)</td>
                         }
                     </tr>
                 }

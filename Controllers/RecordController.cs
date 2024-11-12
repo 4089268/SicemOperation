@@ -72,7 +72,12 @@ public class RecordController : Controller
     }
 
 
-    [AllowAnonymous]
+    public IActionResult ShowRecordsDay(int year, int month, int day){
+        ViewBag.DateTarget = new DateTime(year, month, day);
+        var incidents = this.incidenceService.GetIncidentsByDate(ViewBag.DateTarget);
+        return View("RecordsDay");
+    }
+
     [Route("/record/resume-chart")]
     [HttpGet]
     public IActionResult ResumeChart([FromQuery] int year, [FromQuery] int month){

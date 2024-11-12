@@ -1,0 +1,21 @@
+﻿@model IEnumerable<Incidencia>
+@using SicemOperation.Entities
+@{
+    ViewData["Title"] = "Incidencias del dia " + ViewBag.DateTarget.ToLongDateString();
+    ViewData["PageTitle"] = "Incidencias del dia " + ViewBag.DateTarget.ToLongDateString();
+    var breadcrumbElements = new List<dynamic>();
+}
+
+<partial name="PageHeader" model="@breadcrumbElements"/>
+
+@* <div class="container">
+    <div class="row">
+        <div class="col-8 text-center">
+            <ul>
+            @foreach( var group in Model.GroupBy(item => item.TipoIncidencia.Grupo)){
+                <li>@group.Key</li>
+            }
+            </ul>
+        </div>
+    </div>
+</div> *@

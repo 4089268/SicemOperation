@@ -74,6 +74,12 @@ namespace SicemOperation.Services
             return response;
         }
 
+        public IEnumerable<Incidencia> GetIncidentsByDate(DateTime date){
+            return this.sicemOperationContext.Incidencias
+                .Include(item => item.TipoIncidencia)
+                .Where( item => item.Fecha.Date == date && item.Eliminado == null)
+                .ToList();
+        }
 
         /// <summary>
         /// Fake data for testing

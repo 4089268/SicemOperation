@@ -24,7 +24,17 @@
             <tr>
                 <th>Incidencia</th>
                 @for(int day = 0; day < Model.TotalDays; day++ ){
-                    <th class="text-center">@(day + 1)</th>
+                    <th class="text-center">
+                        <a class="btn btn-link" style="text-decoration: underline;"
+                            asp-action="ShowRecordsDay"
+                            asp-controller="Record"
+                            asp-route-year="@Model.From.Year"
+                            asp-route-month="@Model.From.Month"
+                            asp-route-day="@(day+1)"
+                        >
+                            @(day + 1)
+                        </a>
+                    </th>
                 }
             </tr>
         </thead>

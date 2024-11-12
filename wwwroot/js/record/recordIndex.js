@@ -25,32 +25,34 @@ function loadIncidentsGrid(currentDate){
 }
 
 function initCalendar(currentDate){
-    $('#calendarRecords').fullCalendar({
-        header: {
-            left: 'prev,next today',
-            center: 'title',
-            right: 'month'
-        },
-        defaultDate: currentDate.toISOString().split('T')[0],
-        navLinks: true, // can click day/week names to navigate views
-        editable: true,
-        eventLimit: true, // allow "more" link when too many events
-        events: [
-            {
-                title: 'Capturado',
-                start: '2024-11-01',
+    if ($('#calendarRecords').length) {
+        $('#calendarRecords').fullCalendar({
+            header: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'month'
             },
-            {
-                title: 'Capturado',
-                start: '2024-11-02',
-            },
-            {
-                title: 'Pendiente',
-                start: '2024-11-09',
-                backgroundColor: 'red',
-            }
-        ]
-    });
+            defaultDate: currentDate.toISOString().split('T')[0],
+            navLinks: true, // can click day/week names to navigate views
+            editable: true,
+            eventLimit: true, // allow "more" link when too many events
+            events: [
+                {
+                    title: 'Capturado',
+                    start: '2024-11-01',
+                },
+                {
+                    title: 'Capturado',
+                    start: '2024-11-02',
+                },
+                {
+                    title: 'Pendiente',
+                    start: '2024-11-09',
+                    backgroundColor: 'red',
+                }
+            ]
+        });
+    }
 }
 
 async function initChartsHole(currentDate){

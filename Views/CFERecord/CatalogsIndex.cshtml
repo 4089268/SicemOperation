@@ -1,0 +1,12 @@
+@{
+    ViewData["Title"] = "Catalogos CFE";
+    ViewData["PageTitle"] = "Catalogos CFE ";
+    var breadcrumbElements = new List<dynamic>();
+    breadcrumbElements.Add(new { Title = "CFE Catalogos", Route ="" });
+}
+<partial name="PageHeader" model="@breadcrumbElements" />
+
+
+<li class="nav-item">
+    <a class="nav-link" asp-controller="CFERecord" asp-action="TarifasIndex">Catalogos Tarifas</a>
+</li>

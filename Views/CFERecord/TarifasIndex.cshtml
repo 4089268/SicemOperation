@@ -1,0 +1,45 @@
+@model IEnumerable<SicemOperation.Entities.CFETarifa>
+@{
+    ViewBag.Title = "Catalogo Tarifas";
+    ViewData["PageTitle"] = "Catalogo Tarifas";
+    var breadcrumbElements = new List<dynamic>();
+    breadcrumbElements.Add( new { Title = "Catalogos", Route = "/CFERecord/catalogos" });
+    breadcrumbElements.Add( new { Title = "Tarifas", Route ="" });
+}
+
+<partial name="PageHeader" model="@breadcrumbElements" />
+
+<div class="row my-2">
+    <p class="border w-100 max-w-screen-xl mx-auto bg-white p-3">
+        <a asp-action="TarifasCreate" class="btn btn-primary">Registar Nuevo</a>
+    </p>
+</div>
+
+
+<div class="row my-2">
+    <div class="border bg-white p-3 w-100 max-w-screen-xl mx-auto">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Nombre</th>
+                    <th>Inactivo</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Id</td>
+                        <td>@item.Nombre</td>
+                        <td>@(item.Inactivo ? "Yes" : "No")</td>
+                        <td>
+                            <a asp-action="TarifasEdit" asp-route-id="@item.Id" class="btn btn-warning">Editar</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

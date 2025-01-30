@@ -9,7 +9,6 @@
 
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav flex-column">
-                    
                     <li class="nav-divider"> Menu </li>
                     <li class="nav-item ">
                         <a class="nav-link" asp-controller="Home" asp-action="Index">
@@ -31,13 +30,30 @@
                         </div>
                     </li>
                     <li class="nav-item ">
+                        <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-3" aria-controls="submenu-3">
+                            <i class="fab fa fa-bolt"></i>
+                            <span>CFE</span>
+                        </a>
+                        <div id="submenu-3" class="collapse submenu" style="">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Record" asp-action="Index">Historial Consumo</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Record" asp-action="Index">Registrar Consumo</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="CFERecord" asp-action="CatalogsIndex">Catalogos</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item ">
                         <a class="nav-link" asp-controller="Home" asp-action="Privacy">
                             <i class="fa fa-info-circle"></i>Informacion
                             <span class="badge badge-success">6</span>
                         </a>
                     </li>
-                    
-                    
                 </ul>
             </div>
         </nav>

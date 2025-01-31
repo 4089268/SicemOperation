@@ -1,0 +1,37 @@
+@model SicemOperation.Entities.CFEZona
+
+@{
+    ViewBag.Title = "Editar Zona";
+    ViewData["PageTitle"] = "Editar Zona";
+    var breadcrumbElements = new List<dynamic>();
+    breadcrumbElements.Add( new { Title = "Catalogos", Route = "/CFERecord/catalogos" });
+    breadcrumbElements.Add( new { Title = "Catalogo Zonas", Route = "/CFERecord/catalogos/CFEZona" });
+    breadcrumbElements.Add( new { Title = "Editar", Route = "" });
+}
+
+<partial name="PageHeader" model="@breadcrumbElements" />
+
+<div class="row mt-4">
+    <div class="border bg-white p-3 w-100 max-w-screen-xl mx-auto">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="Zona" class="control-label"></label>
+                <input asp-for="Zona" class="form-control" />
+                <span asp-validation-for="Zona" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Guardar Cambios" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-secondary">Regresar</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@*
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+*@

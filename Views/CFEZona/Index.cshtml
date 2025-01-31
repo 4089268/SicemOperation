@@ -1,0 +1,43 @@
+@model IEnumerable<SicemOperation.Entities.CFEZona>
+@{
+    ViewBag.Title = "Catalogo Zonas";
+    ViewData["PageTitle"] = "Catalogo Zonas";
+    var breadcrumbElements = new List<dynamic>();
+    breadcrumbElements.Add( new { Title = "Catalogos", Route = "/CFERecord/catalogos" });
+    breadcrumbElements.Add( new { Title = "Zonas", Route ="" });
+}
+
+<partial name="PageHeader" model="@breadcrumbElements" />
+
+<div class="row my-2">
+    <p class="border w-100 max-w-screen-xl mx-auto bg-white p-3">
+        <a asp-action="Create" class="btn btn-primary">Registar Nuevo</a>
+    </p>
+</div>
+
+
+<div class="row my-2">
+    <div class="border bg-white p-3 w-100 max-w-screen-xl mx-auto">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Zona</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Id</td>
+                        <td>@item.Zona</td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning">Editar</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

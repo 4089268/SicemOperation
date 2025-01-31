@@ -23,6 +23,42 @@
             </ul>
         </li>
 
+        <li class="has-child ">
+            <a href="#" class="">
+                <span class="nav-icon las la-bolt"></span>
+                <span class="menu-text">CFE</span>
+                <span class="toggle-icon"></span>
+            </a>
+            <ul>
+                <li>
+                    <a class="nav-link" asp-controller="Record" asp-action="Index">Historial Consumo</a>
+                </li>
+                <li>
+                    <a class="nav-link" asp-controller="Record" asp-action="Index">Registrar Consumo</a>
+                </li>
+
+                <li class="menu-title mt-15" style="padding-left: 1rem;">
+                    <span>Catalogos</span>
+                </li>
+                <li>
+                    <a class="nav-link" asp-controller="CFEMedidor" asp-action="Index">Catalogo Medidores</a>
+                </li>
+
+                <li>
+                    <a class="nav-link" asp-controller="CFEProceso" asp-action="Index">Catalogo Procesos</a>
+                </li>
+
+                <li>
+                    <a class="nav-link" asp-controller="CFEZona" asp-action="Index">Catalogo Zonas</a>
+                </li>
+
+                <li>
+                    <a class="nav-link" asp-controller="CFETarifa" asp-action="Index">Catalogo Tarifas</a>
+                </li>
+
+            </ul>
+        </li>
+
         <li class="">
             <a asp-controller="Home" asp-action="Privacy">
                 <span class="nav-icon uil uil-sign-out-alt"></span>

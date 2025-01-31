@@ -11,12 +11,12 @@ namespace SicemOperation.Controllers;
 
 [Authorize]
 [Route("/CFERecord/Catalogos/[controller]")]
-public class CFEZonaController : Controller
+public class CFETarifaController : Controller
 {
-    private readonly ILogger<CFEZonaController> _logger;
+    private readonly ILogger<CFETarifaController> _logger;
     private readonly SicemOperationContext sicemOperationContext;
     
-    public CFEZonaController(ILogger<CFEZonaController> logger, SicemOperationContext sicemOperationContext)
+    public CFETarifaController(ILogger<CFETarifaController> logger, SicemOperationContext sicemOperationContext)
     {
         this._logger = logger;
         this.sicemOperationContext = sicemOperationContext;
@@ -25,8 +25,8 @@ public class CFEZonaController : Controller
     
     public IActionResult Index()
     {
-        var zonas = sicemOperationContext.CFEZonas.ToList();
-        return View(zonas);
+        var tarifas = sicemOperationContext.CFETarifas.ToList();
+        return View(tarifas);
     }
 
     [HttpGet("create")]
@@ -37,15 +37,15 @@ public class CFEZonaController : Controller
 
     [HttpPost("create")]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Create([Bind("Id,Zona")] CFEZona cfeZona)
+    public async Task<IActionResult> Create([Bind("Id,Nombre,Inactivo")] CFETarifa cfeTarifa)
     {
         if (ModelState.IsValid)
         {
-            this.sicemOperationContext.CFEZonas.Add(cfeZona);
+            sicemOperationContext.CFETarifas.Add(cfeTarifa);
             await sicemOperationContext.SaveChangesAsync();
-            return RedirectToAction("Index");
+            return RedirectToAction("TarifasIndex");
         }
-        return View(cfeZona);
+        return View(cfeTarifa);
     }
 
     [HttpGet("edit/{id}")]
@@ -56,20 +56,20 @@ public class CFEZonaController : Controller
             return NotFound();
         }
 
-        var cfeZona = await this.sicemOperationContext.CFEZonas.FindAsync(id);
-        if (cfeZona == null)
+        var cfeTarifa = await this.sicemOperationContext.CFETarifas.FindAsync(id);
+        if (cfeTarifa == null)
         {
             return NotFound();
         }
 
-        return View(cfeZona);
+        return View(cfeTarifa);
     }
 
     [HttpPost("edit/{id}")]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Edit([FromRoute] int id, [Bind("Id,Zona")] CFEZona cfeZona)
+    public async Task<IActionResult> Edit([FromRoute] int id, [Bind("Id,Nombre,Inactivo")] CFETarifa cfeTarifa)
     {
-        if (id != cfeZona.Id)
+        if (id != cfeTarifa.Id)
         {
             return NotFound();
         }
@@ -78,12 +78,12 @@ public class CFEZonaController : Controller
         {
             try
             {
-                this.sicemOperationContext.CFEZonas.Update(cfeZona);
+                this.sicemOperationContext.CFETarifas.Update(cfeTarifa);
                 await this.sicemOperationContext.SaveChangesAsync();
             }
             catch (Exception)
             {
-                if (!CFEZonaExists(cfeZona.Id))
+                if (!CFETarifaExists(cfeTarifa.Id))
                 {
                     return NotFound();
                 }
@@ -92,14 +92,15 @@ public class CFEZonaController : Controller
                     throw;
                 }
             }
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("TarifasIndex");
         }
-        return View(cfeZona);
+        
+        return View(cfeTarifa);
     }
 
-    private bool CFEZonaExists(int id)
+    private bool CFETarifaExists(int id)
     {
-        return sicemOperationContext.CFEZonas.Any(e => e.Id == id);
+        return this.sicemOperationContext.CFETarifas.Any(e => e.Id == id);
     }
 
 }

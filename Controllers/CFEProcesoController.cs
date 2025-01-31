@@ -11,12 +11,12 @@ namespace SicemOperation.Controllers;
 
 [Authorize]
 [Route("/CFERecord/Catalogos/[controller]")]
-public class CFEZonaController : Controller
+public class CFEProcesoController : Controller
 {
-    private readonly ILogger<CFEZonaController> _logger;
+    private readonly ILogger<CFEProcesoController> _logger;
     private readonly SicemOperationContext sicemOperationContext;
     
-    public CFEZonaController(ILogger<CFEZonaController> logger, SicemOperationContext sicemOperationContext)
+    public CFEProcesoController(ILogger<CFEProcesoController> logger, SicemOperationContext sicemOperationContext)
     {
         this._logger = logger;
         this.sicemOperationContext = sicemOperationContext;
@@ -25,8 +25,8 @@ public class CFEZonaController : Controller
     
     public IActionResult Index()
     {
-        var zonas = sicemOperationContext.CFEZonas.ToList();
-        return View(zonas);
+        var procesos = sicemOperationContext.CFEProcesos.ToList();
+        return View(procesos);
     }
 
     [HttpGet("create")]
@@ -37,15 +37,15 @@ public class CFEZonaController : Controller
 
     [HttpPost("create")]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Create([Bind("Id,Zona")] CFEZona cfeZona)
+    public async Task<IActionResult> Create([Bind("Id,Proceso")] CFEProceso cFEProceso)
     {
         if (ModelState.IsValid)
         {
-            this.sicemOperationContext.CFEZonas.Add(cfeZona);
+            this.sicemOperationContext.CFEProcesos.Add(cFEProceso);
             await sicemOperationContext.SaveChangesAsync();
             return RedirectToAction("Index");
         }
-        return View(cfeZona);
+        return View(cFEProceso);
     }
 
     [HttpGet("edit/{id}")]
@@ -56,20 +56,20 @@ public class CFEZonaController : Controller
             return NotFound();
         }
 
-        var cfeZona = await this.sicemOperationContext.CFEZonas.FindAsync(id);
-        if (cfeZona == null)
+        var cFEProceso = await this.sicemOperationContext.CFEProcesos.FindAsync(id);
+        if (cFEProceso == null)
         {
             return NotFound();
         }
 
-        return View(cfeZona);
+        return View(cFEProceso);
     }
 
     [HttpPost("edit/{id}")]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Edit([FromRoute] int id, [Bind("Id,Zona")] CFEZona cfeZona)
+    public async Task<IActionResult> Edit([FromRoute] int id, [Bind("Id,Proceso")] CFEProceso cFEProceso)
     {
-        if (id != cfeZona.Id)
+        if (id != cFEProceso.Id)
         {
             return NotFound();
         }
@@ -78,12 +78,12 @@ public class CFEZonaController : Controller
         {
             try
             {
-                this.sicemOperationContext.CFEZonas.Update(cfeZona);
+                this.sicemOperationContext.CFEProcesos.Update(cFEProceso);
                 await this.sicemOperationContext.SaveChangesAsync();
             }
             catch (Exception)
             {
-                if (!CFEZonaExists(cfeZona.Id))
+                if (!CFEProcesoExists(cFEProceso.Id))
                 {
                     return NotFound();
                 }
@@ -94,12 +94,12 @@ public class CFEZonaController : Controller
             }
             return RedirectToAction(nameof(Index));
         }
-        return View(cfeZona);
+        return View(cFEProceso);
     }
 
-    private bool CFEZonaExists(int id)
+    private bool CFEProcesoExists(int id)
     {
-        return sicemOperationContext.CFEZonas.Any(e => e.Id == id);
+        return sicemOperationContext.CFEProcesos.Any(e => e.Id == id);
     }
 
 }

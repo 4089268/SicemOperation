@@ -1,0 +1,70 @@
+@model SicemOperation.Models.DTO.CFE.ConsumoDTO
+@{
+    ViewData["Title"] = "CFE Registro Consumo";
+    ViewData["PageTitle"] = "CFE Registro Consumo";
+    var breadcrumbElements = new List<dynamic>();
+    breadcrumbElements.Add(new { Title = "CFE Consumos", Route = "" });
+}
+<partial name="PageHeader" model="@breadcrumbElements" />
+
+<div class="row mt-3">
+    <div class="columns-1 col-4 mb-30">
+        <partial name="./Partials/AsideWidget" />
+    </div>
+
+    <div class="col-8">
+        <div class="card card-Vertical card-default card-md mb-4">
+            <div class="card-body pb-md-30">
+                <div class="Vertical-form">
+                    <form action="#">
+                        <div class="form-group row">
+                            <div class="col-4 mb-2">
+                                <label for="formGroupExampleInput" class="color-dark fs-14 fw-500 align-center mb-10">Periodo</label>
+                                <div class="d-flex">
+                                    <input asp-for="Af" type="number" class="form-control ih-medium ip-light radius-xs b-light px-15" placeholder="Año" />
+                                    <input asp-for="Mf" type="number" class="form-control ih-medium ip-light radius-xs b-light px-15" placeholder="Mes" />
+                                </div>
+                            </div>
+
+                            <div class="col-4 mb-2">
+                                <label asp-for="MedidorId" class="color-dark fs-14 fw-500 align-center mb-2"></label>
+                                <input asp-for="MedidorId" type="number" class="form-control ih-medium ip-light radius-xs b-light px-15" />
+                            </div>
+                        </div>
+
+                        <partial name="./Partials/ConsumoForm" model="Model.Consumo"/>
+
+                        <div class="layout-button col-12 mt-25">
+                            <button type="button" class="btn btn-primary btn-default btn-squared px-30">Guardar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .widget {
+        background-color: var(--color-white);
+        box-shadow: 0 5px 20px rgba(var(--box-shadow-color-rgba), 0.03);
+        border-radius: 10px;
+        display: inline-block;
+        position: relative;
+        width: 100%;
+        padding: 1rem;
+    }
+</style>
+
+@section scripts
+{
+    <script>
+        $(document).ready(()=>{
+            $("#medidores-list-wrapper").load("/CFERecord/Medidores", {
+                year: 2025,
+                month: 1
+            });
+        })
+    </script>
+    
+}

@@ -5,43 +5,71 @@
     var breadcrumbElements = new List<dynamic>();
     breadcrumbElements.Add(new { Title = "CFE Consumos", Route = "" });
 }
+@section styles
+{
+    <link rel="stylesheet" href="/assets/vendor_assets/css/select2.min.css">
+}
+
 <partial name="PageHeader" model="@breadcrumbElements" />
 
 <div class="row mt-3">
-    <div class="columns-1 col-4 mb-30">
-        <partial name="./Partials/AsideWidget" />
-    </div>
-
-    <div class="col-8">
+    <div class="col-12">
         <div class="card card-Vertical card-default card-md mb-4">
             <div class="card-body pb-md-30">
                 <div class="Vertical-form">
-                    <form action="#">
+                    <form asp-controller="CFERecord" asp-action="Consumo" method="get">
                         <div class="form-group row">
-                            <div class="col-4 mb-2">
-                                <label for="formGroupExampleInput" class="color-dark fs-14 fw-500 align-center mb-10">Periodo</label>
-                                <div class="d-flex">
-                                    <input asp-for="Af" type="number" class="form-control ih-medium ip-light radius-xs b-light px-15" placeholder="Año" />
-                                    <input asp-for="Mf" type="number" class="form-control ih-medium ip-light radius-xs b-light px-15" placeholder="Mes" />
-                                </div>
+                            <div class="col-2">
+                                <label asp-for="Af" class="color-dark fs-14 fw-500 align-center"></label>
+                                <input asp-for="Af" type="number" class="form-control ip-light radius-xs b-light px-15" placeholder="Año" />
                             </div>
-
-                            <div class="col-4 mb-2">
-                                <label asp-for="MedidorId" class="color-dark fs-14 fw-500 align-center mb-2"></label>
-                                <input asp-for="MedidorId" type="number" class="form-control ih-medium ip-light radius-xs b-light px-15" />
+                            <div class="col-2">
+                                <label asp-for="Mf" class="color-dark fs-14 fw-500 align-center"></label>
+                                <input asp-for="Mf" type="number" class="form-control ip-light radius-xs b-light px-15" placeholder="Año" />
                             </div>
-                        </div>
-
-                        <partial name="./Partials/ConsumoForm" model="Model.Consumo"/>
-
-                        <div class="layout-button col-12 mt-25">
-                            <button type="button" class="btn btn-primary btn-default btn-squared px-30">Guardar</button>
+                            <div class="col-3">
+                                <label asp-for="MedidorId" class="il-gray fs-14 fw-500 align-center"></label>
+                                <select asp-for="MedidorId" asp-items="@Model.MedidoresListItems" class="form-control ip-light radius-xs b-light px-15 select2"></select>
+                            </div>
+                            <div class="col-2 d-flex justify-content-center mt-2">
+                                <button type="submit" class="btn btn-primary btn-sm btn-squared text-capitalize px-30">Consultar</button>
+                            </div>
                         </div>
                     </form>
+                    @if(ViewBag.ErrorMessage != null)
+                    {
+                        <div class=" alert alert-danger mt-2" role="alert">
+                            <div class="alert-content">
+                                <p>@ViewBag.ErrorMessage</p>
+                            </div>
+                        </div>
+                    }
                 </div>
             </div>
         </div>
     </div>
+
+    @if(Model.Consumo != null)
+    {
+        <div class="col-12">
+            <div class="card card-Vertical card-default card-md mb-4">
+                <div class="card-header">
+                    <h5 id="#form-title" class="text-uppercase">@ViewBag.FormTitle</h5>
+                </div>
+                <div class="card-body pb-md-30">
+                    <div class="Vertical-form">
+                        <form asp-controller="CFERecord" asp-action="StoreConsumo" method="post">
+                            <partial name="./Partials/ConsumoForm" model="Model.Consumo"/>
+                            <div class="layout-button col-12 mt-25 justify-content-center">
+                                <button type="submit" class="btn btn-primary btn-default btn-squared px-30">Guardar Consumo</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
 </div>
 
 <style>
@@ -58,13 +86,10 @@
 
 @section scripts
 {
+    <script src="/assets/vendor_assets/js/select2.full.min.js"></script>
     <script>
-        $(document).ready(()=>{
-            $("#medidores-list-wrapper").load("/CFERecord/Medidores", {
-                year: 2025,
-                month: 1
-            });
+        $(document).ready(() => {
+            $('select.select2').select2();
         })
     </script>
-    
 }
